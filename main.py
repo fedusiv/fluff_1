@@ -1,8 +1,9 @@
-# 23 05 work
+# 23 05 home
 
 import socket
 import sys
 from _thread import start_new_thread
+from client import Client
 
 HOST = '' # all availabe interfaces
 PORT = 9999 # arbitrary non privileged port
@@ -35,6 +36,9 @@ def client_thread(conn):
             break
 
     conn.close()
+
+cl = Client()
+cl.test_write()
 
 while True:
     # blocking call, waits to accept a connection
