@@ -18,10 +18,7 @@ def client_thread(conn, addr):
         while True:
             try:
                 data = conn.recv(1024)
-                cl.recived_data = data
                 cl.recieving_data(data)
-                cl.show_data()
-                conn.send(b"i'm server")
             except socket.error as e:
                 print(e)
                 print("close socket")
