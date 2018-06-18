@@ -3,7 +3,7 @@ import socket
 import sys
 from _thread import start_new_thread
 from client import Client
-import sqlite3
+from db_handler import Db_Handler
 
 HOST = '' # all availabe interfaces
 PORT = 9999 # arbitrary non privileged port
@@ -14,18 +14,8 @@ print("[-] Socket Bound to port " + str(PORT))
 s.listen(10)
 print("Listening...")
 
-# connection with db
-sql_conn = sqlite3.connect("fluffdb.db")
-# cursor on db
-sql_cursor = sql_conn.cursor()
+db_handle = Db_Handler.inst()
 
-sql_cursor.execute("""CREATE TABLE users
-                  (email text, login text, password text,
-                   money text)""")
-sql_cursor.execute("""INSERT INTO users
-    VALUES ('sentipon.n@gmail.com','ilya','555', '10')""")
-
-sql_conn.commit()
 
 
 def client_thread(conn, addr):
@@ -45,11 +35,15 @@ def client_thread(conn, addr):
                 break
 
 
-
 while True:
     # blocking call, waits to accept a connection
     conn, addr = s.accept()
     print("[-] Connected to " + addr[0] + ":" + str(addr[1]))
     start_new_thread(client_thread, (conn, addr))
 
+
 s.close()
+
+
+
+
