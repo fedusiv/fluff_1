@@ -1,0 +1,18 @@
+From server to client:
+
+1.
+command: login			// command for login operations
+result: correct/incorrect 	// resualt means reualt of input login pass data
+	incorrect: login/password	// submodule of incorrect : login or pass incorrect
+
+
+
+
+From client to server:
+
+1.
+command: login		// command for login to server
+login: login		
+password: pass
+		 
+
